@@ -265,7 +265,7 @@ const Scholarship = () => {
               ].map((item) => (
                 <div
                   key={item.label}
-                  className="bg-card rounded-xl px-6 py-4 text-center min-w-[350px] shadow-card"
+                  className="bg-card rounded-xl px-6 py-4 text-center min-w-[35px] shadow-card"
                 >
                   <p className="text-2xl font-bold text-lime-400">
                     {item.value}
