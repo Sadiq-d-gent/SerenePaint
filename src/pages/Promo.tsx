@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 
 const COMPANY_WHATSAPP_NUMBER = "2348012345678"; 
-const PROMO_EXPIRY_DATE = new Date("2025-11-31T23:59:59Z");
+const PROMO_EXPIRY_DATE = new Date("2025-12-31T23:59:59");
 
 const PRODUCTS = [
   "Wooding Coating",
