@@ -87,7 +87,7 @@ export const ScholarshipSection = () => {
                   ].map((item) => (
                     <div
                       key={item.label}
-                      className="bg-primary-foreground/10 rounded-xl px-5 py-4 text-center min-w-[50px]"
+                      className="bg-primary-foreground/10 rounded-xl px-5 py-4 text-center min-w-[35px]"
                     >
                       <p className="text-2xl font-bold text-lime-400">
                         {item.value}
