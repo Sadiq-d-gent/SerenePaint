@@ -37,7 +37,7 @@ export const HeroSection = () => {
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-background leading-tight mb-6"
           >
             Transform Your Space with{" "}
-            <span className="text-lime-400">Premium Painting</span>
+            <span className="text-lime-400">Premium Paints</span>
           </motion.h1>
 
           <motion.p
@@ -46,8 +46,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg md:text-xl text-background/80 mb-8 max-w-2xl leading-relaxed"
           >
-            Professional painting services for residential, commercial, and industrial projects. 
-            Quality workmanship, premium materials, and exceptional customer service.
+            Expert painting solutions for residential, commercial, and industrial projects. Delivering top-quality workmanship, premium materials, and outstanding customer service every time.
           </motion.p>
 
           <motion.div
