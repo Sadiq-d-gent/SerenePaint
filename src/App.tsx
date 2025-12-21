@@ -9,6 +9,7 @@ import Press, { PressArticle } from "./pages/Press";
 import Scholarship from "./pages/Scholarship";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import Promo from "./pages/Promo";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
+          <Route path="/promo" element={<Promo />} />
           <Route path="/press" element={<Press />} />
           <Route path="/press/:id" element={<PressArticle />} />
           <Route path="/scholarship" element={<Scholarship />} />

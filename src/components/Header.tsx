@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 const navLinks = [
   { name: "Home", path: "/" },
   { name: "About", path: "/about" },
-  { name: "Services", path: "/#services" },
-  { name: "Portfolio", path: "/#portfolio" },
+  // { name: "Services", path: "/#services" },
+  { name: "Promo", path: "/Promo" },
   { name: "Press", path: "/press" },
   { name: "Scholarship", path: "/scholarship" },
   { name: "Contact", path: "/contact" },
@@ -51,7 +51,7 @@ export const Header = () => {
                 }`}
               >
                 {link.name}
-                <span className={`absolute -bottom-1 left-0 w-full h-0.5 bg-secondary transform origin-left transition-transform duration-300 ${
+                <span className={`absolute -bottom-1 left-0 w-full h-0.5 bg-lime-400 transform origin-left transition-transform duration-300 ${
                   isActive(link.path) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                 }`} />
               </Link>

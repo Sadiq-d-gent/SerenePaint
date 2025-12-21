@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Layout } from "@/components/Layout";
 import { GraduationCap, CheckCircle, FileText, Calendar, User, MapPin, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+
+const SCHOLARSHIP_DEADLINE = new Date("2025-12-25T23:59:59"); // Edit deadline here
 
 const eligibilityRequirements = [
   "Must be a Nigerian citizen",
@@ -38,6 +40,38 @@ const Scholarship = () => {
     phone: "",
     email: "",
   });
+
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  const [isExpired, setIsExpired] = useState(false);
+
+  // Countdown logic
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = SCHOLARSHIP_DEADLINE.getTime() - now;
+
+      if (distance <= 0) {
+        setIsExpired(true);
+        clearInterval(timer);
+        return;
+      }
+
+      setTimeLeft({
+        days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((distance / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((distance / (1000 * 60)) % 60),
+        seconds: Math.floor((distance / 1000) % 60),
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -220,6 +254,30 @@ const Scholarship = () => {
             </p>
           </motion.div>
 
+          {/* Countdown */}
+          {!isExpired && (
+            <div className="flex justify-center gap-4 mb-10 flex-wrap">
+              {[
+                { label: "Days", value: timeLeft.days },
+                { label: "Hours", value: timeLeft.hours },
+                { label: "Minutes", value: timeLeft.minutes },
+                { label: "Seconds", value: timeLeft.seconds },
+              ].map((item) => (
+                <div
+                  key={item.label}
+                  className="bg-card rounded-xl px-6 py-4 text-center min-w-[90px] shadow-card"
+                >
+                  <p className="text-2xl font-bold text-lime-400">
+                    {item.value}
+                  </p>
+                  <p className="text-xs uppercase text-muted-foreground">
+                    {item.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -227,147 +285,158 @@ const Scholarship = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="max-w-2xl mx-auto"
           >
-            <form onSubmit={handleSubmit} className="bg-card rounded-2xl p-8 shadow-card space-y-6">
-              {/* Full Name */}
-              <div className="space-y-2">
-                <Label htmlFor="fullName" className="flex items-center gap-2">
-                  <User className="w-4 h-4" />
-                  Full Name
-                </Label>
-                <Input
-                  id="fullName"
-                  name="fullName"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  placeholder="Enter your full name"
-                  required
-                />
+            {isExpired ? (
+              <div className="bg-card rounded-2xl p-10 shadow-card text-center">
+                <h3 className="text-2xl font-bold text-foreground mb-4">
+                  Applications Closed
+                </h3>
+                <p className="text-muted-foreground">
+                  The scholarship application deadline has passed.
+                </p>
               </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="bg-card rounded-2xl p-8 shadow-card space-y-6">
+                {/* Full Name */}
+                <div className="space-y-2">
+                  <Label htmlFor="fullName" className="flex items-center gap-2">
+                    <User className="w-4 h-4" />
+                    Full Name
+                  </Label>
+                  <Input
+                    id="fullName"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleChange}
+                    placeholder="Enter your full name"
+                    required
+                  />
+                </div>
 
-              {/* Date of Birth */}
-              <div className="space-y-2">
-                <Label htmlFor="dateOfBirth" className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
-                  Date of Birth
-                </Label>
-                <Input
-                  id="dateOfBirth"
-                  name="dateOfBirth"
-                  type="date"
-                  value={formData.dateOfBirth}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+                {/* Date of Birth */}
+                <div className="space-y-2">
+                  <Label htmlFor="dateOfBirth" className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4" />
+                    Date of Birth
+                  </Label>
+                  <Input
+                    id="dateOfBirth"
+                    name="dateOfBirth"
+                    type="date"
+                    value={formData.dateOfBirth}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
 
-              {/* SSCE Result */}
-              <div className="space-y-2">
-                <Label htmlFor="ssceResult" className="flex items-center gap-2">
-                  <FileText className="w-4 h-4" />
-                  SSCE Result Summary
-                </Label>
-                <Textarea
-                  id="ssceResult"
-                  name="ssceResult"
-                  value={formData.ssceResult}
-                  onChange={handleChange}
-                  placeholder="List your subjects and grades (e.g., English - A1, Mathematics - B2)"
-                  rows={3}
-                  required
-                />
-              </div>
+                {/* SSCE Result */}
+                <div className="space-y-2">
+                  <Label htmlFor="ssceResult" className="flex items-center gap-2">
+                    <FileText className="w-4 h-4" />
+                    SSCE Result Summary
+                  </Label>
+                  <Textarea
+                    id="ssceResult"
+                    name="ssceResult"
+                    value={formData.ssceResult}
+                    onChange={handleChange}
+                    placeholder="List your subjects and grades (e.g., English - A1, Mathematics - B2)"
+                    rows={3}
+                    required
+                  />
+                </div>
 
-              {/* Address */}
-              <div className="space-y-2">
-                <Label htmlFor="address" className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4" />
-                  Residential Address
-                </Label>
-                <Textarea
-                  id="address"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  placeholder="Enter your full residential address"
-                  rows={2}
-                  required
-                />
-              </div>
+                {/* Address */}
+                <div className="space-y-2">
+                  <Label htmlFor="address" className="flex items-center gap-2">
+                    <MapPin className="w-4 h-4" />
+                    Residential Address
+                  </Label>
+                  <Textarea
+                    id="address"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleChange}
+                    placeholder="Enter your full residential address"
+                    rows={2}
+                    required
+                  />
+                </div>
 
-              {/* Nationality */}
-              <div className="space-y-2">
-                <Label htmlFor="nationality">Nationality</Label>
-                <Input
-                  id="nationality"
-                  name="nationality"
-                  value={formData.nationality}
-                  onChange={handleChange}
-                  placeholder="Nigerian"
-                  required
-                />
-              </div>
+                {/* Nationality */}
+                <div className="space-y-2">
+                  <Label htmlFor="nationality">Nationality</Label>
+                  <Input
+                    id="nationality"
+                    name="nationality"
+                    value={formData.nationality}
+                    onChange={handleChange}
+                    placeholder="Nigerian"
+                    required
+                  />
+                </div>
 
-              {/* State of Origin */}
-              <div className="space-y-2">
-                <Label htmlFor="stateOfOrigin">State of Origin (Indigene)</Label>
-                <select
-                  id="stateOfOrigin"
-                  name="stateOfOrigin"
-                  value={formData.stateOfOrigin}
-                  onChange={handleChange}
-                  required
-                  className="flex h-11 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                >
-                  <option value="">Select your state</option>
-                  {nigerianStates.map((state) => (
-                    <option key={state} value={state}>{state}</option>
-                  ))}
-                </select>
-              </div>
+                {/* State of Origin */}
+                <div className="space-y-2">
+                  <Label htmlFor="stateOfOrigin">State of Origin (Indigene)</Label>
+                  <select
+                    id="stateOfOrigin"
+                    name="stateOfOrigin"
+                    value={formData.stateOfOrigin}
+                    onChange={handleChange}
+                    required
+                    className="flex h-11 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  >
+                    <option value="">Select your state</option>
+                    {nigerianStates.map((state) => (
+                      <option key={state} value={state}>{state}</option>
+                    ))}
+                  </select>
+                </div>
 
-              {/* Phone */}
-              <div className="space-y-2">
-                <Label htmlFor="phone" className="flex items-center gap-2">
-                  <Phone className="w-4 h-4" />
-                  Phone Number
-                </Label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="+234 xxx xxx xxxx"
-                  required
-                />
-              </div>
+                {/* Phone */}
+                <div className="space-y-2">
+                  <Label htmlFor="phone" className="flex items-center gap-2">
+                    <Phone className="w-4 h-4" />
+                    Phone Number
+                  </Label>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="+234 xxx xxx xxxx"
+                    required
+                  />
+                </div>
 
-              {/* Email */}
-              <div className="space-y-2">
-                <Label htmlFor="email" className="flex items-center gap-2">
-                  <Mail className="w-4 h-4" />
-                  Email Address
-                </Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="your@email.com"
-                  required
-                />
-              </div>
+                {/* Email */}
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="flex items-center gap-2">
+                    <Mail className="w-4 h-4" />
+                    Email Address
+                  </Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="your@email.com"
+                    required
+                  />
+                </div>
 
-              <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-                {isSubmitting ? "Submitting..." : "Submit Application"}
-              </Button>
+                <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+                  {isSubmitting ? "Submitting..." : "Submit Application"}
+                </Button>
 
-              <p className="text-xs text-muted-foreground text-center">
-                By submitting this form, you agree to our terms and conditions 
-                and confirm that all information provided is accurate.
-              </p>
-            </form>
+                <p className="text-xs text-muted-foreground text-center">
+                  By submitting this form, you agree to our terms and conditions 
+                  and confirm that all information provided is accurate.
+                </p>
+              </form>
+            )}
           </motion.div>
         </div>
       </section>
