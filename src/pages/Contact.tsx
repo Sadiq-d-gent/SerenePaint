@@ -165,9 +165,7 @@ const Contact = () => {
               <div className="mt-8 rounded-2xl overflow-hidden bg-muted aspect-video flex items-center justify-center">
                 <div className="text-center p-6">
                   <MapPin className="w-12 h-12 text-muted-foreground mx-auto mb-3" />
-                  <p className="text-sm text-muted-foreground">
-                    Interactive map can be embedded here
-                  </p>
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.719779899014!2d8.551807674104797!3d11.993881435561194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x11ae8173bd2dfec1%3A0x8453c9df63f5d71b!2s3%20Alu%20Ave%2C%20Nassarawa%2C%20Kano%20700213%2C%20Kano!5e0!3m2!1sen!2sng!4v1766411289973!5m2!1sen!2sng" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
               </div>
             </motion.div>
