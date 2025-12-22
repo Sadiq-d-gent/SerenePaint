@@ -1,3 +1,5 @@
+'use client';
+
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Layout } from "@/components/Layout";
@@ -161,13 +163,24 @@ const Contact = () => {
                 ))}
               </div>
 
-              {/* Map Placeholder */}
-              <div className="mt-8 rounded-2xl overflow-hidden bg-muted aspect-video flex items-center justify-center">
-                <div className="text-center p-6">
-                  <MapPin className="w-12 h-12 text-muted-foreground mx-auto mb-3" />
-                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.719779899014!2d8.551807674104797!3d11.993881435561194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x11ae8173bd2dfec1%3A0x8453c9df63f5d71b!2s3%20Alu%20Ave%2C%20Nassarawa%2C%20Kano%20700213%2C%20Kano!5e0!3m2!1sen!2sng!4v1766411289973!5m2!1sen!2sng" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-              </div>
+              {/* Google Map */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="mt-8 rounded-2xl overflow-hidden bg-muted w-full h-[300px] sm:h-[400px] md:h-[450px] flex items-center justify-center"
+              >
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.719779899014!2d8.551807674104797!3d11.993881435561194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x11ae8173bd2dfec1%3A0x8453c9df63f5d71b!2s3%20Alu%20Ave%2C%20Nassarawa%2C%20Kano%20700213%2C%20Kano!5e0!3m2!1sen!2sng!4v1766411289973!5m2!1sen!2sng"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </motion.div>
             </motion.div>
 
             {/* Contact Form */}
@@ -186,7 +199,6 @@ const Contact = () => {
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
-                    {/* Name */}
                     <div className="space-y-2">
                       <Label htmlFor="name">Full Name</Label>
                       <Input
@@ -198,8 +210,6 @@ const Contact = () => {
                         required
                       />
                     </div>
-
-                    {/* Email */}
                     <div className="space-y-2">
                       <Label htmlFor="email">Email Address</Label>
                       <Input
@@ -215,7 +225,6 @@ const Contact = () => {
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6">
-                    {/* Phone */}
                     <div className="space-y-2">
                       <Label htmlFor="phone">Phone Number</Label>
                       <Input
@@ -227,8 +236,6 @@ const Contact = () => {
                         placeholder="+234 xxx xxx xxxx"
                       />
                     </div>
-
-                    {/* Subject */}
                     <div className="space-y-2">
                       <Label htmlFor="subject">Subject</Label>
                       <Input
@@ -242,7 +249,6 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  {/* Message */}
                   <div className="space-y-2">
                     <Label htmlFor="message">Your Message</Label>
                     <Textarea
