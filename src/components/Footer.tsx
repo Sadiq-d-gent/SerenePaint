@@ -43,7 +43,7 @@ export const Footer = () => {
               </div>
               <div className="flex flex-col">
                 <span className="font-bold text-xl leading-tight">Serene Paint</span>
-                <span className="text-sm text-primary-foreground/70 leading-tight">Professional Painting</span>
+                <span className="text-sm text-primary-foreground/70 leading-tight">Trusted Coatings</span>
               </div>
             </Link>
             <p className="text-primary-foreground/80 mb-6 max-w-sm leading-relaxed">
