@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 
-const COMPANY_WHATSAPP_NUMBER = "2348012345678"; 
+const COMPANY_WHATSAPP_NUMBER = "+2348033336340"; 
 const PROMO_EXPIRY_DATE = new Date("2025-12-31T23:59:59");
 
 const PRODUCTS = [
