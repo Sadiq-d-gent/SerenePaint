@@ -114,7 +114,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send email to company
     const emailResponse = await resend.emails.send({
-      from: "Serene Paint Forms <forms@serenepaint.com>",
+      from: "Serene Paint Forms <serenepaint.com>",
       to: ["sadiqahmadelif01@gmail.com"], // Replace with actual company email
       subject: emailSubject,
       html: emailHtml,
