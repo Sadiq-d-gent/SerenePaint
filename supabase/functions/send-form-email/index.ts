@@ -115,7 +115,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Send email to company
     const emailResponse = await resend.emails.send({
       from: "Serene Paint Forms <onboarding@resend.dev>",
-      to: ["serenepremiumpaint@gmail.com"], // Replace with actual company email
+      to: ["sadiqahmadelif01@gmail.com"], // Replace with actual company email
       subject: emailSubject,
       html: emailHtml,
     });
