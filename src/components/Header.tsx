@@ -60,9 +60,9 @@ export const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-4">
-            <a href="tel:+1234567890" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <a href="tel:+2348033336340" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
               <Phone className="w-4 h-4" />
-              <span>(123) 456-7890</span>
+              <span>+2348033336340</span>
             </a>
             <Button asChild>
               <Link to="/contact">Get a Quote</Link>
