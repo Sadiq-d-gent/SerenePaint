@@ -13,19 +13,19 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Phone",
-    details: "(123) 456-7890",
-    link: "tel:+1234567890",
+    details: "+2348033336340",
+    link: "tel:+2348033336340",
   },
   {
     icon: Mail,
     title: "Email",
-    details: "info@propaint.com",
-    link: "mailto:info@propaint.com",
+    details: "serenepremiumpaint@gmail.com",
+    link: "mailto:serenepremiumpaint@gmail.com",
   },
   {
     icon: MapPin,
     title: "Address",
-    details: "123 Business Street, Lagos, Nigeria",
+    details: "No. 3 Alu Avenue Nasarawa GRA Nigeria",
     link: null,
   },
   {
