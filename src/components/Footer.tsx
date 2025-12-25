@@ -25,7 +25,7 @@ const footerLinks = {
 const socialLinks = [
   { icon: Facebook, href: "https://www.facebook.com/profile.php?id=61585555706247", label: "Facebook" },
   { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Twitter, href: "https://x.com/serene_paint"", label: "Twitter" },
+  { icon: Twitter, href: "https://x.com/serene_paint", label: "Twitter" },
   { icon: Linkedin, href: "#", label: "LinkedIn" },
 ];
 
